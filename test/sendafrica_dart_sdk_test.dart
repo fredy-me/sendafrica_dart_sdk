@@ -1,16 +1,11 @@
-import 'package:sendafrica_dart_sdk/sendafrica_dart_sdk.dart';
+import 'dart:io';
+
 import 'package:test/test.dart';
 
 void main() {
-  group('A group of tests', () {
-    final awesome = Awesome();
-
-    setUp(() {
-      // Additional setup goes here.
-    });
-
-    test('First Test', () {
-      expect(awesome.isAwesome, isTrue);
-    });
+  test('package release artifacts are present', () {
+    expect(File('LICENSE').existsSync(), isTrue);
+    expect(File('README.md').existsSync(), isTrue);
+    expect(File('CHANGELOG.md').existsSync(), isTrue);
   });
 }
