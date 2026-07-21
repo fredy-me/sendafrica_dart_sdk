@@ -1,8 +1,5 @@
-/// Support for doing something awesome.
+/// Dart client library for the SendAfrica Tanzania SMS API.
 ///
-/// More dartdocs go here.
-library;
-
-export 'src/sendafrica_dart_sdk_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.
+/// This package's public API is introduced in the implementation phases that
+/// follow the package foundation. Applications should import this library,
+/// rather than files under `lib/src`.
