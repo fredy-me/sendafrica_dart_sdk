@@ -136,7 +136,7 @@ re-exported from the package barrel.
 |---|---|---|---|
 | 0. Contract lock | Create the parity matrix from TypeScript source, types, README, and tests; record known source/docs differences. | Every TypeScript public export, endpoint, model field, error, and tested edge case has a Dart destination. | Complete |
 | 1. Package foundation | Replace the generated template metadata and exports; select and pin minimal Dart dependencies; add static analysis, formatting, test, and publish checks. | `dart analyze`, `dart format --output=none`, and tests run on a clean checkout. | Complete |
-| 2. Value types and errors | Implement immutable request/result models, JSON mappings, enums/value objects, configuration, and error hierarchy. | Model/error unit tests cover all reference fields and classifications. | Pending |
+| 2. Value types and errors | Implement immutable request/result models, JSON mappings, enums/value objects, configuration, and error hierarchy. | Model/error unit tests cover all reference fields and classifications. | In progress |
 | 3. Local utilities | Implement phone normalization/validation and GSM-7/UCS-2 segmentation. | Reference phone and SMS-part test vectors pass, including a 71-emoji UTF-16 case. | Pending |
 | 4. Transport core | Add injected transport, JSON envelope parsing, timeout, query serialization, API-key/JWT header isolation, retry policy, and safe body handling. | Deterministic fake-transport tests prove success, API errors, 429/5xx/network retries, timeout, non-JSON response, and retry exhaustion. | Pending |
 | 5. Resource methods | Implement all six client methods and response transformations. | Endpoint-by-endpoint contract tests prove URL, verb, body, headers, query string, and return mapping. | Pending |
