@@ -1,39 +1,36 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# SendAfrica Dart SDK
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages). 
+The Dart implementation of the SendAfrica Tanzania SMS API SDK.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages). 
--->
+This package follows the architecture and behavior of the
+[SendAfrica TypeScript SDK](https://github.com/SendAfrica/SendAfrica-typescript-sdk),
+while using idiomatic Dart package conventions.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Development status
 
-## Features
+Phase 1—the package foundation—is complete. The public client API, request
+models, validation, and transport behavior are implemented in subsequent
+phases. This pre-release package must not yet be used to send production SMS.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## Development checks
 
-## Getting started
+Run the complete local verification suite from the repository root:
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
+```bash
+./tool/verify.sh
 ```
 
-## Additional information
+The verification suite checks formatting, static analysis, tests, and pub
+package readiness without publishing anything.
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+## Reference and scope
+
+The TypeScript SDK is the product behavior authority. The Dart implementation
+will include SMS sending, credit management, vouchers, message logs, Tanzania
+phone normalization, SMS segment estimation, typed errors, and retry behavior.
+See [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) for the controlled
+implementation roadmap.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
