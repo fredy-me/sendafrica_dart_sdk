@@ -134,8 +134,8 @@ re-exported from the package barrel.
 
 | Phase | Scope | Completion gate | Status |
 |---|---|---|---|
-| 0. Contract lock | Create the parity matrix from TypeScript source, types, README, and tests; record known source/docs differences. | Every TypeScript public export, endpoint, model field, error, and tested edge case has a Dart destination. | Pending |
-| 1. Package foundation | Replace the generated template metadata and exports; select and pin minimal Dart dependencies; add static analysis, formatting, test, and publish checks. | `dart analyze`, `dart format --output=none`, and tests run on a clean checkout. | In progress |
+| 0. Contract lock | Create the parity matrix from TypeScript source, types, README, and tests; record known source/docs differences. | Every TypeScript public export, endpoint, model field, error, and tested edge case has a Dart destination. | Complete |
+| 1. Package foundation | Replace the generated template metadata and exports; select and pin minimal Dart dependencies; add static analysis, formatting, test, and publish checks. | `dart analyze`, `dart format --output=none`, and tests run on a clean checkout. | Complete |
 | 2. Value types and errors | Implement immutable request/result models, JSON mappings, enums/value objects, configuration, and error hierarchy. | Model/error unit tests cover all reference fields and classifications. | Pending |
 | 3. Local utilities | Implement phone normalization/validation and GSM-7/UCS-2 segmentation. | Reference phone and SMS-part test vectors pass, including a 71-emoji UTF-16 case. | Pending |
 | 4. Transport core | Add injected transport, JSON envelope parsing, timeout, query serialization, API-key/JWT header isolation, retry policy, and safe body handling. | Deterministic fake-transport tests prove success, API errors, 429/5xx/network retries, timeout, non-JSON response, and retry exhaustion. | Pending |
@@ -225,6 +225,22 @@ labelled.
 
 ## 8. Parity register and controlled decisions
 
+### 8.1 TypeScript-to-Dart implementation matrix
+
+| TypeScript source | Reference public responsibility | Dart destination | Phase |
+|---|---|---|---|
+| `src/index.ts` | Single supported package import and exports | `lib/sendafrica_dart_sdk.dart` | 1, then 2–5 |
+| `src/client.ts` | Configuration, HTTP lifecycle, all resource methods, retry, query serialization | `lib/src/client/` and `lib/src/internal/` | 2, 4, 5 |
+| `src/types.ts` | Request, result, query, status, and voucher value types | `lib/src/models/` | 2 |
+| `src/errors.ts` | API, network, and phone-validation errors | `lib/src/errors/sendafrica_errors.dart` | 2 |
+| `src/phone.ts` | Tanzania phone normalization, prefix list, validity helper | `lib/src/utilities/phone.dart` | 3 |
+| `src/sms-parts.ts` | Encoding detection and SMS segment/credit estimate | `lib/src/utilities/sms_parts.dart` | 3 |
+| `test/client.test.ts` | HTTP, retry, authentication-isolation, and preflight-validation proof | `test/client/` plus `test/support/fake_transport.dart` | 4, 5 |
+| `test/phone.test.ts` | Phone normalization vectors | `test/utilities/phone_test.dart` | 3 |
+| `test/sms-parts.test.ts` | GSM-7/UCS-2 and UTF-16 segmentation vectors | `test/utilities/sms_parts_test.dart` | 3 |
+| `package.json` | Package metadata and build/test/release commands | `pubspec.yaml`, `tool/verify.sh`, `.github/workflows/ci.yml` | 1 |
+| `README.md` | User documentation and product guidance | `README.md` and `example/` | 1 foundation, 6 complete docs |
+
 | Item | Reference evidence | Dart decision | State |
 |---|---|---|---|
 | Retry status set | README lists selected 5xx values; `client.ts` retries `429` and any status `>= 500`. | Follow executable behavior: 429 plus all 5xx. | Locked |
@@ -247,10 +263,11 @@ begins.
 
 ## 10. Current baseline and next action
 
-The current Dart package is a generated skeleton: one placeholder library,
-one placeholder test, empty runtime dependencies, and a TODO README. No
-reference SDK functionality is implemented yet.
+Phase 1 is complete. The Dart package now has an intentional public entry
+point, package/repository metadata, a minimal multi-platform HTTP dependency,
+MIT license, strict analysis settings, CI, a local verification script, and a
+non-template README/changelog. It deliberately exposes no SDK operations yet;
+those belong to the later behavior phases.
 
-**Next approved implementation action:** Phase 0 — create the detailed
-TypeScript-to-Dart parity matrix, then complete the package foundation without
-introducing endpoint code prematurely.
+**Next implementation action:** Phase 2 — implement immutable value types,
+configuration, and the typed error hierarchy from the locked parity matrix.
